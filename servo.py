@@ -1,4 +1,5 @@
 # Autor:	Ingmar Sxtapel
+#Autor: 	Jelle Aarnoudse
 # Date:		20160811
 # Version:	1.0
 # Homepage:	www.custom-build-robots.com
@@ -28,11 +29,11 @@ time.sleep(1)
 try:
   while True:
     # Via random define the new value for the DutyCycle
-    move1 = randint(4,11)
+#    move1 = randint(4,11)
     move2 = randint(4,11)
 	# Change the DutyCycle to move the robot to the position
     p18.ChangeDutyCycle(move2)
-    time.sleep(1)
+    time.sleep(2)
 	
 except KeyboardInterrupt:
   p18.stop()
