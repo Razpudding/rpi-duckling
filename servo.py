@@ -1,40 +1,32 @@
-# Autor:	Ingmar Sxtapel
-#Autor: 	Jelle Aarnoudse
-# Date:		20160811
-# Version:	1.0
-# Homepage:	www.custom-build-robots.com
+# Authors: 	Laurens Aarnoudse, Jelle Aarnoudse
+# Date:		2017
+# Version:	0.1
 
+#Import the necessary packages
 import RPi.GPIO as GPIO
 import time
 from random import randint
 
+#Set the pinmode to BCM
 GPIO.setmode(GPIO.BCM)
 
-# define the servo pins. 
-# Here you could change the code and add your pins for example
-servoPIN18 = 18
+#Set the right outputs for the pins
+GPIO.setup(18, GPIO.OUT)
 
-move1 = 0
-move2 = 0
+#Set pulse modulation to 50hz for pin 18 and store that initialization in a variable
+pwm = GPIO.PWM(18, 50)
+#Start the pwm at 4% duty cycle
+pwm.start(4)
 
-GPIO.setup(servoPIN18, GPIO.OUT)
-
-# GPIO 18 als PWM mit 50Hz 
-p18 = GPIO.PWM(servoPIN18, 50) 
-# initial position
-p18.start(4) 
-time.sleep(1)
-
-# This loop will not end until you kill the program
+#Set up a try to allow the programme to be ended by keyboard input
+#After which the GPIO will be cleaned up
+#The forloop will pick a random int and change the dutycycle to that int
 try:
-  while True:
-    # Via random define the new value for the DutyCycle
-#    move1 = randint(4,11)
-    move2 = randint(4,11)
-	# Change the DutyCycle to move the robot to the position
-    p18.ChangeDutyCycle(move2)
-    time.sleep(2)
-	
+        while True:
+                random = randint(4,11)
+                pwm.ChangeDutyCycle(random)
+                time.sleep(1)
+
 except KeyboardInterrupt:
-  p18.stop()
-  GPIO.cleanup()
+        pwm.stop()
+        GPIO.cleanup()
