@@ -33,4 +33,4 @@ try:
 		print "backward"
 		reverse(2)
 except KeyboardInterrupt:
-        GPIO.cleanup()
+        gpio.cleanup()

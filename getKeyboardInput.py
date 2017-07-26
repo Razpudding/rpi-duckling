@@ -85,14 +85,19 @@ def reverse(tf):
 try:
   while quit!=True:
     print "starting loop, q not pressed yet"
-    print "forward"
-    forward(4)
-    print "backward"
-    reverse(2)
+    #print "forward"
+    #forward(4)
+    #print "backward"
+    #reverse(2)
     c = stdscr.getch()
+    curses.endwin()
+    if curses.keyname(c)=="w" :
+      forward(1)
+    elif curses.keyname(c)=="s" :
+      reverse(1)
     #print curses.keyname(c),
-    if curses.keyname(c)=="q" :
-      quit=True
+    # if curses.keyname(c)=="q" :
+    #   quit=True
 except KeyboardInterrupt:
-        GPIO.cleanup()
-curses.endwin()
+  gpio.cleanup()
+  
