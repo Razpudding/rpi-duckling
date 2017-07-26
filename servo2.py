@@ -27,8 +27,8 @@ try:
         while True:
                 pwm.ChangeDutyCycle(DC)
                 time.sleep(1)
-				DC=DC+i
-				if DC=11 then i=i*(-1)
+                DC=DC+i
+                if DC==11: i=-i
 
 except KeyboardInterrupt:
         pwm.stop()
