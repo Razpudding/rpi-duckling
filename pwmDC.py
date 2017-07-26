@@ -59,9 +59,9 @@ try:
       forward(2)
     elif curses.keyname(c)=="s" :
       reverse(2)
-    elif curses.keyname(c)=="u" && speed <= 90:
+    elif curses.keyname(c)=="u" and speed <= 90:
       speed += 10
-    elif curses.keyname(c)=="d" && speed >= 40:
+    elif curses.keyname(c)=="d" and speed >= 40:
       speed -= 10
     #print curses.keyname(c),
     # if curses.keyname(c)=="q" :
