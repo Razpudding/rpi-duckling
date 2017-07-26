@@ -57,6 +57,12 @@ curses.cbreak()
 print "press q to quit"
 quit=False
 
+gpio.setup(18, gpio.OUT)
+#Set pulse modulation to 50hz for pin 18 and store that initialization in a variable
+pwm = GPIO.PWM(18, 1000)
+#Start the pwm at 4% duty cycle
+pwm.start(4)
+
 def init():
  gpio.setmode(gpio.BCM)
  gpio.setup(17, gpio.OUT)
@@ -64,10 +70,14 @@ def init():
  gpio.setup(23, gpio.OUT)
  gpio.setup(24, gpio.OUT)
  
+
+ 
 def forward(tf):
  init()
  gpio.output(17, True)
  gpio.output(22, False)
+ gpio.output(18, False)
+ # pwm.ChangeDutyCycle(random)
  gpio.output(23, True) 
  gpio.output(24, False)
  time.sleep(tf)
@@ -99,5 +109,6 @@ try:
     # if curses.keyname(c)=="q" :
     #   quit=True
 except KeyboardInterrupt:
+  pwm.stop()
   gpio.cleanup()
   
