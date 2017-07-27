@@ -23,6 +23,7 @@ class Propulsion(object):
     self.speed2 = 30
 
   def resetGpio(self):
+    gpio.setmode(gpio.BCM)
     gpio.setup(18, gpio.OUT)
     gpio.setup(13, gpio.OUT)
     #Set pulse modulation to 50hz for pin 18 and 13 and store that initialization in a va$
