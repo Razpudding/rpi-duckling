@@ -40,6 +40,7 @@ class Propulsion(object):
   def forward(self, tf):
     self.resetGpio()
     print("inching forward with speed "+ str(self.speed))
+    self.pwm.ChangeDutyCycle(self.speed)
     gpio.output(17, True)
     gpio.output(22, False)
     gpio.output(23, True)
@@ -50,6 +51,7 @@ class Propulsion(object):
   def reverse(self, tf):
     self.resetGpio()
     print("awkwardly backing away with speed "+ str(self.speed))
+    self.pwm.ChangeDutyCycle(self.speed)
     gpio.output(17, False)
     gpio.output(22, True)
     gpio.output(23, False)
