@@ -19,7 +19,7 @@ class Propulsion(object):
     self.quit=False
 
     gpio.setup(18, gpio.OUT)
-	gpio.setup(13,OUT)
+    gpio.setup(13,OUT)
     #Set pulse modulation to 50hz for pin 18 and 13 and store that initialization in a va$
     self.pwm = gpio.PWM(18, 50)
 	self.pwm = gpio.PWM(13,50)
@@ -34,6 +34,7 @@ class Propulsion(object):
     gpio.setup(23, gpio.OUT)
     gpio.setup(24, gpio.OUT)
     gpio.setup(18, gpio.OUT)
+    gpio.setup(13, gpio.OUT)
     self.pwm.ChangeDutyCycle(self.speed)
 
   def forward(self, tf):
