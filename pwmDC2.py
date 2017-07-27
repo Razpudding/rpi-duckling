@@ -61,6 +61,26 @@ class Propulsion(object):
     time.sleep(tf)
     gpio.cleanup()
 
+  def left(self, tlf):
+    self.resetGpio()
+    print("squeezing left speed "+ str(self.speed1))
+    gpio.output(17, False)
+    gpio.output(22, True)
+    gpio.output(23, True)
+    gpio.output(24, False)
+    time.sleep(tf)
+    gpio.cleanup()
+
+  def right(self, tlf):
+    self.resetGpio()
+    print("squeezing left speed "+ str(self.speed1))
+    gpio.output(17, True)
+    gpio.output(22, False)
+    gpio.output(23, True)
+    gpio.output(24, False)
+    time.sleep(tf)
+    gpio.cleanup()
+
   def start(self):
     try:
       while quit!=True:
@@ -73,6 +93,10 @@ class Propulsion(object):
           self.forward(2)
         elif curses.keyname(c)=="s" :
           self.reverse(2)
+        elif curses.keyname(c)=="l" :
+          self.left(1)
+        elif curses.keyname(c)=="r" :
+          self.right(1)
         elif curses.keyname(c)=="u" and self.speed1 <= 90:
           self.speed1 += 10 
           self.speed2 += 10
