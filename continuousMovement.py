@@ -92,6 +92,7 @@ class Propulsion(object):
 
           self.pwm1.ChangeDutyCycle(self.speed1)
           self.pwm2.ChangeDutyCycle(self.speed2)
+        time.sleep(.1)
     except KeyboardInterrupt:
       self.quit()
 
