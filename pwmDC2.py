@@ -22,7 +22,7 @@ class Propulsion(object):
     gpio.setup(13,OUT)
     #Set pulse modulation to 50hz for pin 18 and 13 and store that initialization in a va$
     self.pwm = gpio.PWM(18, 50)
-	self.pwm = gpio.PWM(13,50)
+    self.pwm = gpio.PWM(13,50)
     #Start the pwm at 0% duty cycle
     self.pwm.start(0)
     self.speed = 30
