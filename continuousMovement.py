@@ -8,9 +8,8 @@ class Propulsion(object):
 
   def init(self):
     self.stdscr = curses.initscr()
-    #use cbreak to not require a return key press
-    curses.cbreak()
-
+    #I think this line makes sure that if the program crashes, you can still see what you're typing in the console
+    curses.endwin()
     gpio.setwarnings(False)
 
     #Set the pinmode to BCM
@@ -33,7 +32,7 @@ class Propulsion(object):
     self.speed2 = 60
     self.laugh()
 
-  def laught(self):
+  def laugh(self):
     pygame.mixer.init()
     pygame.mixer.music.load("laugh.mp3")
     pygame.mixer.music.play()
