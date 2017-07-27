@@ -61,22 +61,22 @@ class Propulsion(object):
     time.sleep(tf)
     gpio.cleanup()
 
-  def left(self, tlf):
+  def left(self, tf):
     self.resetGpio()
     print("squeezing left speed "+ str(self.speed1))
     gpio.output(17, False)
-    gpio.output(22, True)
+    gpio.output(22, False)
     gpio.output(23, True)
     gpio.output(24, False)
     time.sleep(tf)
     gpio.cleanup()
 
-  def right(self, tlf):
+  def right(self, tf):
     self.resetGpio()
     print("squeezing left speed "+ str(self.speed1))
     gpio.output(17, True)
     gpio.output(22, False)
-    gpio.output(23, True)
+    gpio.output(23, False)
     gpio.output(24, False)
     time.sleep(tf)
     gpio.cleanup()
