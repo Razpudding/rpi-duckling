@@ -2,6 +2,7 @@ import RPi.GPIO as gpio
 import time
 #curses is used to capture the keyboard input
 import curses
+import pygame
 
 class Propulsion(object):
 
@@ -30,6 +31,15 @@ class Propulsion(object):
     self.pwm2.start(0)
     self.speed1 = 60
     self.speed2 = 60
+    self.laugh()
+
+  def laught(self):
+    pygame.mixer.init()
+    pygame.mixer.music.load("laugh.mp3")
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy() == True:
+        continue
+
 
   def forward(self):
     print("inching forward with speed "+ str(self.speed1))
