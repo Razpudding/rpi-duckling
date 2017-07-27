@@ -25,7 +25,6 @@ def reverse(tf):
  gpio.output(24, True)
  time.sleep(tf)
  gpio.cleanup()
- 
 try:
 	while True:
 		print "forward"
