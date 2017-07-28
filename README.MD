@@ -1,12 +1,14 @@
 # This is our raspberry pi 3b project where we experiment with a self-driving robot! 🤖
 - [ ] Update readme with the MosCoW model
-- [ ] Set up openCV
+- [X] Set up openCV
 - [ ] Recognize something. Anything really.
 - [ ] Combine the streamhosting script with the engine propulsion script and the openCV script
-- [ ] Backup the SD card after installing openCV!
-- [ ] Improve steering (forwardleft, rotate with 1 wheel forward, 1 back, different speeds for each wheel)
+- [X] Backup the SD card after installing openCV!
+- [X] Check if openCV still works after backing up
+- [X] Improve steering (forwardleft, rotate with 1 wheel forward, 1 back, different speeds for each wheel)
 - [ ] Make a wiring scheme
 - [ ] Send audio through softPWM possibly using pigpio to free up the PWM channels for the DC engines
+- [ ] Turns out some of the code examples I used are not Python 3 -> port code to Python 3
 - [X] Write audio support
 - [X] Update the timezone and locale setting using the baic Pi config
 - [X] Write a first python program, push it to github and pull it on the Pi
@@ -19,7 +21,6 @@
 - [X] Run the DC engine using a python script
 - [X] Remotely control the DC engine
 - [X] Read the acc. chip
-- [ ] Clone the first SD card to the second SD card to test if this works [FAILED]
 - [X] Write a controller cript for each of the robots wheels
 - [X] Set up the rPi camera
 - [X] Stream the rPi camera through SSH
