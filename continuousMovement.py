@@ -22,9 +22,9 @@ class Propulsion(object):
     gpio.setup(23, gpio.OUT)  #motor-right pin
     gpio.setup(24, gpio.OUT)  #motor-right pin
 
-    #Set pulse modulation to 50hz for pins 18 and 13 and store that initialization in pwm1 and pwm2
-    self.pwm1 = gpio.PWM(18, 50)
-    self.pwm2 = gpio.PWM(13, 50)
+    #Set pulse modulation to 500hz for pins 18 and 13 and store that initialization in pwm1 and pwm2
+    self.pwm1 = gpio.PWM(18, 500)
+    self.pwm2 = gpio.PWM(13, 500)
     #Start the pwm at 0% duty cycle
     self.pwm1.start(0)
     self.pwm2.start(0)
