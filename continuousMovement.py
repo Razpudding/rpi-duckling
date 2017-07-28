@@ -67,9 +67,13 @@ class Propulsion(object):
 
   def left(self):
     #When driving forward, slow down the left wheel to turn left
-    #As of right now, the state has no 'forward left' soit will just output left
-    if self.state == "forward" and self.speedRight == self.speedLeft:
+    #As of right now, the state has no 'forward left' so it will just output left
+    if self.state == "forward" and self.state != "left":
         print("forward left")
+        #TODO: keep separate state for forwardleft and right because this sin't dry
+        #HEre the wheelspeeds are reset because if you turn forward right after forward left, the wheelspeeds would both be
+        # divided by steerforce
+        self.speedRight = self.speedLeft = self.cruisingSpeed
         self.speedLeft /= self.steerForce
         self.updateCycle()
     # The next mode is for when the bot stands still
@@ -85,11 +89,11 @@ class Propulsion(object):
 
   def right(self):
     print("to the right ")
-    if self.state == "forward" and self.speedRight == self.speedLeft:
+    if self.state == "forward" and self.state != "right":
         print("forward right")
+        self.speedRight = self.speedLeft = self.cruisingSpeed
         self.speedRight /= self.steerForce
         self.updateCycle()
-        #TODO: updte state here as well otherwise you cant do a quickturn after forward left/right
     # The next mode is for when the bot stands still
     elif self.state != "forward" and self.state != "reverse":
         print("to the right from " + self.state)
@@ -98,8 +102,8 @@ class Propulsion(object):
         self.updateCycle()
         self.state = "right"
         gpio.output(17, False)
-        # This is a nifty trick to control quickturning. If quickturn is true, the left wheel turns backwards,
-        # the right wheel forward; if quickturn is fals, the left wheel stops (false, false) the right wheel turns forward.
+        # This is a nifty trick to control quickturning. If quickturn is true, the left wheel turns backward,
+        # the right wheel forward; if quickturn is false, the left wheel stops (false, false) the right wheel turns forward.
         gpio.output(22, True) if self.quickTurn else gpio.output(22, False)
         gpio.output(23, True)
         gpio.output(24, False)
