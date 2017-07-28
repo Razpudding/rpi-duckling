@@ -122,7 +122,21 @@ class Propulsion(object):
         print("Executing testmoves")
         for instruction in testMoves:
             instruction()
-            time.sleep(5)
+            time.sleep(3)
+
+    def spin():
+        ''''Time to go crazy'''
+        print("WUBBA LUBBA DUB DUUUUB")
+        #TODO: change this after I fix the math for changeSpeed so it accepts an absolute number
+        self.changeSpeed(-10)
+        self.left()
+        time.sleep(.5)
+        while (self.cruisingSpeed <= 90):
+            self.changeSpeed(10)
+            self.left()
+            time.sleep(.5)
+        self.right()
+        time.sleep(2)
 
     def waggle():
         '''Waggle works like this: left,right,left,random quickturn, repeat patter with %chance through recursion'''
@@ -130,12 +144,12 @@ class Propulsion(object):
         self.enableQuickTurn(False)
         for i in range(3):
             waggleMoves[0]()
-            time.sleep(.5)
+            time.sleep(.3)
             waggleMoves[1]()
-            time.sleep(.5)
+            time.sleep(.3)
         self.enableQuickTurn(True)
         waggleMoves[randint(0,1)]()
-        time.sleep(.4)
+        time.sleep(1)
         if (randint(0,9) >= 4):
             waggle()
     #TODO: find a way to interrupt sleep so this process can be stopped by the user
@@ -143,13 +157,12 @@ class Propulsion(object):
     modeMapping = {
         "1" : test,
         "2" : waggle,
-        "3" : "spin"
+        "3" : spin
     }
     userInput = self.stdscr.getch()
     option = curses.keyname(userInput)
     curses.endwin()
     modeMapping[option]()
-    
     self.stop()
 
   def start(self):
@@ -173,21 +186,33 @@ class Propulsion(object):
             self.stop()
         elif option == "0":
             self.goDuckYour()
-        #Todo check if both speeds are within bounds
-        elif option=="k" and self.cruisingSpeed <= 90:
-          self.cruisingSpeed += 10
-          self.speedRight *= 1.1
-          self.speedLeft *= 1.1
-          self.updateCycle()
-        elif option=="m" and self.cruisingSpeed >= 40:
-          self.cruisingSpeed -= 10
-          self.speedRight *= .9
-          self.speedLeft *= .9
-          self.updateCycle()
+        elif option=="k":
+          self.changeSpeed(self.cruisingSpeed + 10)
+        elif option=="m":
+          self.changeSpeed(self.cruisingSpeed - 10)
         #build in a bit of a delay to not overwork the processor too much
-        time.sleep(.1)
+        time.sleep(.02)
     except KeyboardInterrupt:
       self.quit()
+
+  def changeSpeed(self, value):
+    #TODO: Im pretty sure this function can work with absolute values being passed, as in
+    # We want the speed to be 90 so we pass in 90. I started doing the math below and then realized Im
+    # Too drunk/tired to finish it. Ah well, let future Laurens worry about it
+    # Also it might be better to have a function that sets both the wheel direction and the speed. Then,
+    # The wheels can be objects with direction and speed as properties, yay OOP
+    # if (value >= 40 and value <= 90):
+    #     self.cruisingSpeed = value
+    #     self.speedRight *= 
+    print("changeSpeed called with: " + str(value) + " cruisingspeed: " + str(self.cruisingSpeed))
+    if ( (self.cruisingSpeed + value) <= 100 and (self.cruisingSpeed + value) >= 30 ):
+        self.cruisingSpeed += value
+        self.speedRight *= (1 + value / 100)
+        self.speedLeft *= (1 + value / 100)
+        if (self.speedRight > 100):
+            print("right over limit: " + str(self.speedRight))
+            self.speedRight = 100
+    self.updateCycle()
 
   def stop(self):
     print("Stop! Hammertime")
@@ -223,19 +248,13 @@ class Propulsion(object):
   def updateCycle(self):
     self.pwm1.ChangeDutyCycle(self.speedRight)
     self.pwm2.ChangeDutyCycle(self.speedLeft)
-    # if wheel == "left":
-    #     self.pwm2.ChangeDutyCycle(speed)
-    # elif wheel == "right":
-    #     self.pwm1.ChangeDutyCycle(speed)
 
   def quit(self):
     print("quitting program")
     self.pwm1.ChangeDutyCycle(0)
     self.pwm2.ChangeDutyCycle(0)
-
     gpio.cleanup()
     curses.endwin()
-propulsion = Propulsion()
-#propulsion.init()
-propulsion.start()
 
+propulsion = Propulsion()
+propulsion.start()
