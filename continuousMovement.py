@@ -15,14 +15,14 @@ class Propulsion(object):
     #Set the pinmode to BCM
     gpio.setmode(gpio.BCM)
 
-    gpio.setup(18, gpio.OUT)
-    gpio.setup(13, gpio.OUT)
-    gpio.setup(17, gpio.OUT)
-    gpio.setup(22, gpio.OUT)
-    gpio.setup(23, gpio.OUT)
-    gpio.setup(24, gpio.OUT)
+    gpio.setup(18, gpio.OUT)  #PWM-port for left motor
+    gpio.setup(13, gpio.OUT)  #PWM-port for right motor
+    gpio.setup(17, gpio.OUT)  #motor-left pin
+    gpio.setup(22, gpio.OUT)  #motor-left pin
+    gpio.setup(23, gpio.OUT)  #motor-right pin
+    gpio.setup(24, gpio.OUT)  #motor-right pin
 
-    #Set pulse modulation to 50hz for pin 18 and store that initialization in $
+    #Set pulse modulation to 50hz for pins 18 and 13 and store that initialization in pwm1 and pwm2
     self.pwm1 = gpio.PWM(18, 50)
     self.pwm2 = gpio.PWM(13, 50)
     #Start the pwm at 0% duty cycle
