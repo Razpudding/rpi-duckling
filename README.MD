@@ -6,6 +6,8 @@
 - [ ] Backup the SD card after installing openCV!
 - [ ] Improve steering (forwardleft, rotate with 1 wheel forward, 1 back, different speeds for each wheel)
 - [ ] Make a wiring scheme
+- [ ] Send audio through softPWM possibly using pigpio to free up the PWM channels for the DC engines
+- [X] Write audio support
 - [X] Update the timezone and locale setting using the baic Pi config
 - [X] Write a first python program, push it to github and pull it on the Pi
 - [X] Set up a bash script that pulls new code from Github and reboots the Python program and can be triggered remotely and makes everything better
