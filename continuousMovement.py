@@ -50,20 +50,16 @@ class Propulsion(object):
     self.speedRight = self.speedLeft = self.cruisingSpeed
     self.updateCycle()
     self.state = "forward"
-    gpio.output(17, True)
-    gpio.output(22, False)
-    gpio.output(23, True)
-    gpio.output(24, False)
+    self.turnWheel("right", "forward")
+    self.turnWheel("left", "forward")
 
   def reverse(self):
     print("awkwardly backing away with speed "+ str(self.cruisingSpeed))
     self.speedRight = self.speedLeft = self.cruisingSpeed
     self.updateCycle()
     self.state = "reverse"
-    gpio.output(17, False)
-    gpio.output(22, True)
-    gpio.output(23, False)
-    gpio.output(24, True)
+    self.turnWheel("right", "reverse")
+    self.turnWheel("left", "reverse")
 
   def left(self):
     #When driving forward, slow down the left wheel to turn left
@@ -82,10 +78,10 @@ class Propulsion(object):
         self.speedRight = self.speedLeft = self.cruisingSpeed
         self.updateCycle()
         self.state = "left"
-        gpio.output(17, True)
-        gpio.output(22, False)
-        gpio.output(23, False)
-        gpio.output(24, True) if self.quickTurn else gpio.output(24, False)
+        # This is a nifty trick to control quickturning. If quickturn is true, the left wheel turns backward,
+        # the right wheel forward; if quickturn is false, the left wheel stops (false, false) the right wheel turns forward.
+        self.turnWheel("left", "reverse") if self.quickTurn else self.turnWheel("left", "stop")
+        self.turnWheel("right", "forward")
 
   def right(self):
     print("to the right ")
@@ -101,12 +97,10 @@ class Propulsion(object):
         self.speedRight = self.speedLeft = self.cruisingSpeed
         self.updateCycle()
         self.state = "right"
-        gpio.output(17, False)
         # This is a nifty trick to control quickturning. If quickturn is true, the left wheel turns backward,
         # the right wheel forward; if quickturn is false, the left wheel stops (false, false) the right wheel turns forward.
-        gpio.output(22, True) if self.quickTurn else gpio.output(22, False)
-        gpio.output(23, True)
-        gpio.output(24, False)
+        self.turnWheel("right", "reverse") if self.quickTurn else self.turnWheel("right", "stop")
+        self.turnWheel("left", "forward")
 
   def goDuckYour(self):
     print("Loose yourself (autonomous mode)") 
@@ -153,10 +147,30 @@ class Propulsion(object):
   def stop(self):
     print("Stop! Hammertime")
     self.state = "still"
-    gpio.output(17, False)
-    gpio.output(22, False)
-    gpio.output(23, False)
-    gpio.output(24, False)
+    self.turnWheel("left", "stop")
+    self.turnWheel("right", "stop")
+
+  def turnWheel(self, wheel, direction):
+    if wheel == "left":
+        if direction == "forward":
+            gpio.output(23, True)
+            gpio.output(24, False)
+        elif direction == "reverse":
+            gpio.output(23, False)
+            gpio.output(24, True)
+        elif direction == "stop":
+            gpio.output(23, False)
+            gpio.output(24, False)
+    if wheel == "right":
+        if direction == "forward":
+            gpio.output(17, True)
+            gpio.output(22, False)
+        elif direction == "reverse":
+            gpio.output(17, False)
+            gpio.output(22, True)
+        elif direction == "stop":
+            gpio.output(17, False)
+            gpio.output(22, False)
 
   def updateCycle(self):
     self.pwm1.ChangeDutyCycle(self.speedRight)
