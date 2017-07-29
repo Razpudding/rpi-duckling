@@ -141,6 +141,7 @@ class Propulsion(object):
     def waggle():
         '''Waggle works like this: left,right,left,random quickturn, repeat patter with %chance through recursion'''
         print("Executing waggle")
+		#TODO: left and right should listen to enable quickturn instead of detecting if the bot is not moving
         self.enableQuickTurn(False)
         for i in range(3):
             waggleMoves[0]()
