@@ -40,11 +40,9 @@ def reverse(tf):
  
  try:
 	while True:
-		print "forward"
 		forward(1)
 		if time.time() - lastsave > 1:
-		print "backward"
-		reverse(1)
+			reverse(1)
 		if time.time() - lastsave > 1:
 except KeyboardInterrupt:
         gpio.cleanup()
