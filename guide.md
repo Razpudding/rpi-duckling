@@ -1,5 +1,7 @@
 # The process of building our lost duckling bot
 
+* Disclaimer: This "guide" was written so we, the creators of the project could retrace our steps. It might be hard to follow for anyone else. *
+
 ###Setup
 * Download the latest raspBian OS
 * Put it on a micro SD card like so https://www.raspberrypi.org/documentation/installation/installing-images/README.md (you may need additional software to cmplete this step)
