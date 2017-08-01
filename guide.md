@@ -1,6 +1,6 @@
 # The process of building our lost duckling bot
 
-*Disclaimer: This "guide" was written so we, the creators of the project could retrace our steps. It might be hard to follow for anyone else.*
+*Disclaimer: This "guide" was written so we, the creators of the project, could retrace our steps. It might be hard to follow for anyone else.*
 
 ### Setup
 * Download the latest raspBian OS
@@ -14,6 +14,7 @@
 * Now would also be the time to change the standard pwd so nobody else can SSH into your 🍰
 * If you want you can now setup things like Wifi and Bluetooth like we did, using this guide: http://www.makeuseof.com/tag/setup-wi-fi-bluetooth-raspberry-pi-3/
 * Now you'll want to make a (Github) repository holding your project's code. Then clone it to your own computer as well as to the Pi using the CLI. I chose to clone the project into the Pi's Documents folder (but there might be better places for this.)
+* I experienced some problems sshin into my Pi on a network where I couldn't access the router. I used nmap to scan the network like so `nmap your.local.ip.0/24` which scans the entire subnet. Amongst the results should be one with a couple open ports like 22 for ssh, and 5900 for vnc and in my case a port for camera streaming. As I have no way of setting a static ip for the pi, i'll have to do this a lot... So I found better ways, [explained here](https://serialized.net/2013/04/headless_rpi/). I used that tutorial to set up a bash script for the mac terminal that will auto find and ssh to any rPi on the same network! Because the guide was working with the bash shell and I use the standard terminal, [I needed this post](https://stackoverflow.com/questions/8967843/how-do-i-create-a-bash-alias) as well to set things up. And for that I need tot install ssh-copy-id like so. In the end I had an issue with ssh-copy-id not finding the right keys(file?) so for now I just work with rpi_ip and then manually ssh into that ip.
 
 Now that the initial setup works it's time to write our first python program. We used this tutorial (https://learn.adafruit.com/adafruits-raspberry-pi-lesson-8-using-a-servo-motor/software)
 We ran into the problem that importing wiringpi seems to fail. Possibly a Python3 vs 2 issue.
@@ -44,7 +45,7 @@ In the end we had to flash the original image and redo all the precious settings
 * We're using the official rPi camera v2. It's easy enough to install, just make sure the silver art of the connector cable faces the HDMI port (on the rPi3B)
 * To enable the camera, go through the config menu on your rPi and then reboot it
 * Then we followed [this tutorial](http://www.instructables.com/id/Raspberry-Pi-remote-webcam/) to stream the video to a web address hosted by the rPi. Pretty cool trick that seems to be widely supported. Well that didn't work. Looks like it's supposed to be used with webcams connected through the USB port of the rpi.
-* Yes! This [very brief picamera script](https://picamera.readthedocs.io/en/release-1.13/recipes2.html#web-streaming) works perfectly!
+* Yes! This [very brief picamera script](https://picamera.readthedocs.io/en/release-1.13/recipes2.html#web-streaming) works perfectly! I just use ipython3 filename.py to run it and then pi.ip.address.here:8000 to access the feed from my laptop.
 
 ### OpenCV
 Finally, some computer vision!
