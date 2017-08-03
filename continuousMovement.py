@@ -128,11 +128,11 @@ class Propulsion(object):
         ''''Time to go crazy'''
         print("WUBBA LUBBA DUB DUUUUB")
         #TODO: change this after I fix the math for changeSpeed so it accepts an absolute number
-        self.changeSpeed(-10)
+        self.changeSpeed(30)
         self.left()
         time.sleep(.5)
         while (self.cruisingSpeed <= 90):
-            self.changeSpeed(10)
+            self.changeSpeed(self.cruisingSpeed + 10)
             self.left()
             time.sleep(.5)
         self.right()
@@ -197,22 +197,17 @@ class Propulsion(object):
       self.quit()
 
   def changeSpeed(self, value):
-    #TODO: Im pretty sure this function can work with absolute values being passed, as in
-    # We want the speed to be 90 so we pass in 90. I started doing the math below and then realized Im
-    # Too drunk/tired to finish it. Ah well, let future Laurens worry about it
-    # Also it might be better to have a function that sets both the wheel direction and the speed. Then,
+    '''Accepts an absolute speed between 0-100 and changes the wheels' speed to the given value. This does mean
+    that changing the speed while turning right or left will set the bot on a forward path'''
+    # TODO: it might be better to have a function that sets both the wheel direction and the speed. Then,
     # The wheels can be objects with direction and speed as properties, yay OOP
-    # if (value >= 40 and value <= 90):
-    #     self.cruisingSpeed = value
-    #     self.speedRight *= 
     print("changeSpeed called with: " + str(value) + " cruisingspeed: " + str(self.cruisingSpeed))
-    if ( (self.cruisingSpeed + value) <= 100 and (self.cruisingSpeed + value) >= 30 ):
-        self.cruisingSpeed += value
-        self.speedRight *= (1 + value / 100)
-        self.speedLeft *= (1 + value / 100)
-        if (self.speedRight > 100):
-            print("right over limit: " + str(self.speedRight))
-            self.speedRight = 100
+    oldSpeed = self.cruisingSpeed
+    if ( value <= 100 and value >= 0 ):
+        self.cruisingSpeed = value
+        self.speedRight = self.speedLeft = self.cruisingSpeed
+    else:
+        print("Value out of range: " + str(value))
     self.updateCycle()
 
   def stop(self):
