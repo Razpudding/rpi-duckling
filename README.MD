@@ -1,26 +1,22 @@
-# This is our raspberry pi 3b project where we experiment with a self-driving robot! 🤖
-- [ ] Update readme with the MosCoW model
-- [X] Set up openCV
-- [ ] Recognize something. Anything really.
+# This is our raspberry pi 3b project where we experiment with a self-driving robot! 🤖🐤
+The idea is that this code eventually drives a robot mimicking a lost little duckling, in search of its parent. The rpi duckling will autonomously drive around until it recognizes a person through computer vision, after which it imprints on that person and follows them around.
+I've built it with my dad and the projects is ongoing.
+
+## Features
+- A web stream of the video from the camera to a website available to all devices on the same WAN
+- A fluent driving controller (through keyboard keys)
+- Built-in autonomous behavior (altoug the robot is not aware of its surroundings atm so it will eventually bump into them)
+- Audio playback support (altough the audio out pwm is on the same pin as one of the wheels PWM for the moment...)
+
+The wiring scheme for our bot can be found [here](https://github.com/Razpudding/rpi-duckling/master/docs/wiring_diagram.png)
+
+## Todo
+- [ ] Recognize something. Anything really (with open CV).
 - [ ] Combine the streamhosting script with the engine propulsion script and the openCV script
-- [X] Backup the SD card after installing openCV!
-- [X] Check if openCV still works after backing up
-- [X] Improve steering (forwardleft, rotate with 1 wheel forward, 1 back, different speeds for each wheel)
 - [ ] Make a wiring scheme
 - [ ] Send audio through softPWM possibly using pigpio to free up the PWM channels for the DC engines
 - [ ] Turns out some of the code examples I used are not Python 3 -> port code to Python 3
-- [X] Write audio support
-- [X] Update the timezone and locale setting using the baic Pi config
-- [X] Write a first python program, push it to github and pull it on the Pi
-- [X] Set up a bash script that pulls new code from Github and reboots the Python program and can be triggered remotely and makes everything better
-- [X] Connect a breadboard and read/write with a basic sensor + LED
-- [X] Research balancing robot (2 wheels)
-- [X] Jelle makes a first code commit
-- [X] Order better gyro/acc. 
-- [X] Migrate all documentation to google drive folder
-- [X] Run the DC engine using a python script
-- [X] Remotely control the DC engine
-- [X] Read the acc. chip
-- [X] Write a controller cript for each of the robots wheels
-- [X] Set up the rPi camera
-- [X] Stream the rPi camera through SSH
+- [ ] Expand the autonomous mode to include more complex behaviour as well as "quack" sounds indicating what the duckling is about to do.
+- [ ] While in autonomous mode, respon to voice commands
+- [ ] Rewrite code without using time.sleep() (possibly using events) allowig better control and simultaneous processes.
+
