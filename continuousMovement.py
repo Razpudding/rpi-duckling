@@ -141,7 +141,7 @@ class Propulsion(object):
     def waggle():
         '''Waggle works like this: left,right,left,random quickturn, repeat patter with %chance through recursion'''
         print("Executing waggle")
-		#TODO: left and right should listen to enable quickturn instead of detecting if the bot is not moving
+        #TODO: left and right should listen to enable quickturn instead of detecting if the bot is not moving
         self.enableQuickTurn(False)
         for i in range(3):
             waggleMoves[0]()
@@ -160,8 +160,7 @@ class Propulsion(object):
         "2" : waggle,
         "3" : spin
     }
-    userInput = self.stdscr.getch()
-    option = curses.keyname(userInput)
+    option = chr(self.stdscr.getch())
     curses.endwin()
     modeMapping[option]()
     self.stop()
@@ -170,8 +169,8 @@ class Propulsion(object):
     try:
       while True:
         curses.cbreak()
-        userInput = self.stdscr.getch()
-        option = curses.keyname(userInput)
+        #get the single character entered's ASCII integer and return its string equivalent
+        option = chr(self.stdscr.getch())
         curses.endwin()
         print("input is: " + str(option))
         #we could convert this to a dictionary mapping but that wouldnt work for the more complex options
@@ -192,7 +191,7 @@ class Propulsion(object):
         elif option=="m":
           self.changeSpeed(self.cruisingSpeed - 10)
         #build in a bit of a delay to not overwork the processor too much
-        time.sleep(.02)
+        time.sleep(.01)
     except KeyboardInterrupt:
       self.quit()
 
