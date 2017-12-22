@@ -2,6 +2,8 @@
 The idea is that this code eventually drives a robot mimicking a lost little duckling, in search of its parent. The rpi duckling will autonomously drive around until it recognizes a person through computer vision, after which it imprints on that person and follows them around.
 My dad and I are building this project together and it's still under development.
 
+![Here you can see both the rPi ducklings from the front](/Ducklings_front.png)
+
 ## Features
 - A fluent driving controller (through keyboard keys)
 - Built-in autonomous behavior (altoug the robot is not aware of its surroundings atm so it will eventually bump into them)
